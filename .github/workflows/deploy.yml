@@ -25,10 +25,12 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use node
-
             cd ci-cd
             git pull
             npm install
             npm run build
             npm run start
+            pm2 delete threecicd || true
+            pm2 start npm --name "threecicd" -- run start
+            pm2 save
 
